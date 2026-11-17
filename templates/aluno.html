@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Dados</title>
+    <style>
+        * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        body { background: #0f172a; color: #e2e8f0; margin: 0; padding: 24px; }
+        header { display: flex; justify-content: space-between; align-items: center;
+                 margin-bottom: 24px; }
+        h1 { font-size: 22px; margin: 0; }
+        a.sair { color: #f87171; text-decoration: none; font-size: 14px; }
+        .card { background: #1e293b; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .dados { color: #cbd5e1; font-size: 14px; line-height: 1.8; }
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #334155; font-size: 14px; }
+        th { color: #cbd5e1; }
+        .aviso { color: #94a3b8; font-size: 12px; margin-top: 10px; }
+        .tag { background: #16a34a; color: #fff; font-size: 11px; padding: 2px 8px;
+               border-radius: 999px; margin-left: 8px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meus Dados <span class="tag">aluno</span></h1>
+        <a class="sair" href="{{ url_for('logout') }}">Sair</a>
+    </header>
+
+    <div class="card">
+        <h2>{{ aluno.nome }}</h2>
+        <div class="dados">
+            <strong>Data de nascimento:</strong> {{ aluno.data_nascimento }}<br>
+            <strong>Endereco:</strong> {{ aluno.endereco }}<br>
+            <strong>Celular:</strong> {{ aluno.celular }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Minhas Notas</h2>
+        <table>
+            <tr><th>Materia</th><th>Nota</th></tr>
+            {% for nota in notas %}
+            <tr><td>{{ nota.materia }}</td><td>{{ "%.1f"|format(nota.nota) }}</td></tr>
+            {% endfor %}
+        </table>
+        <p class="aviso">Este acesso e somente para visualizacao. Voce nao pode alterar notas.</p>
+    </div>
+</body>
+</html>

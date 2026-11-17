@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema Escolar</title>
+    <style>
+        * { box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        body { background: #0f172a; color: #e2e8f0; display: flex; align-items: center;
+               justify-content: center; height: 100vh; margin: 0; }
+        .card { background: #1e293b; padding: 32px; border-radius: 12px; width: 320px;
+                box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+        h1 { font-size: 20px; margin: 0 0 4px; }
+        p.sub { margin: 0 0 20px; color: #94a3b8; font-size: 13px; }
+        label { display: block; font-size: 13px; margin-bottom: 4px; color: #cbd5e1; }
+        input { width: 100%; padding: 10px; margin-bottom: 16px; border-radius: 8px;
+                border: 1px solid #334155; background: #0f172a; color: #e2e8f0; }
+        button { width: 100%; padding: 11px; border: 0; border-radius: 8px;
+                 background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+        .msg { padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+        .erro { background: #7f1d1d; color: #fecaca; }
+        .bloqueio { background: #78350f; color: #fde68a; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Sistema Escolar</h1>
+        <p class="sub">Entre com usuario de administrador ou de aluno</p>
+
+        {% if bloqueio %}<div class="msg bloqueio">{{ bloqueio }}</div>{% endif %}
+
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, texto in mensagens %}
+                <div class="msg {{ categoria }}">{{ texto }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="username">Usuario</label>
+            <input type="text" id="username" name="username" autocomplete="off" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
